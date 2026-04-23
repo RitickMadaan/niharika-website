@@ -40,8 +40,6 @@ jobs:
       - name: Build site
         run: npm run build
         working-directory: frontend
-        env:
-          PUBLIC_URL: /niharika-website
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
