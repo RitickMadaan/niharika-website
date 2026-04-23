@@ -51,7 +51,7 @@ const NoGatekeeping = () => {
   return (
     <section
       id="insights"
-      className="py-24 md:py-32 px-6 md:px-12 bg-[#FAF8F5]"
+      className="scroll-mt-24 md:scroll-mt-28 py-24 md:py-32 px-6 md:px-12 bg-[#FAF8F5]"
     >
       <div
         ref={ref}

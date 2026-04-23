@@ -10,7 +10,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex flex-col justify-center items-center px-6 md:px-12 bg-[#FAF8F5] relative"
+      className="min-h-screen scroll-mt-24 md:scroll-mt-28 flex flex-col justify-center items-center px-6 md:px-12 bg-[#FAF8F5] relative"
     >
       <div className="max-w-4xl mx-auto text-center">
         <p className="font-lato text-sm tracking-[0.3em] uppercase text-[#B8977E] mb-8 opacity-0 animate-fade-in">

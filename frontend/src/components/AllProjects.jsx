@@ -39,7 +39,10 @@ const AllProjects = () => {
   const [ref, isInView] = useInView();
 
   return (
-    <section id="work" className="py-24 md:py-32 px-6 md:px-12 bg-[#F0EBE3]">
+    <section
+      id="work"
+      className="scroll-mt-24 md:scroll-mt-28 py-24 md:py-32 px-6 md:px-12 bg-[#F0EBE3]"
+    >
       <div
         ref={ref}
         className={`max-w-7xl mx-auto transition-all duration-1000 ${

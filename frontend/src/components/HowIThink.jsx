@@ -47,7 +47,10 @@ const HowIThink = () => {
   const [ref, isInView] = useInView();
 
   return (
-    <section id="thinking" className="py-24 md:py-32 px-6 md:px-12 bg-[#FAF8F5]">
+    <section
+      id="thinking"
+      className="scroll-mt-24 md:scroll-mt-28 py-24 md:py-32 px-6 md:px-12 bg-[#FAF8F5]"
+    >
       <div
         ref={ref}
         className={`max-w-6xl mx-auto transition-all duration-1000 ${
