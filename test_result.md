@@ -101,3 +101,115 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Remove PostHog safely, localize Notion-hosted images, migrate off CRA/CRACO to reduce audit exposure, and keep the website working. Also ensure verification before pushing."
+backend: []
+frontend:
+  - task: "Vite dev server starts from frontend/"
+    implemented: true
+    working: true
+    file: "frontend/package.json"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Verified `npm start` from frontend/ launched Vite successfully at http://localhost:5173/."
+  - task: "Homepage renders and work-sample cards load local bundled assets"
+    implemented: true
+    working: true
+    file: "frontend/src/data/workSamples.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Homepage rendered 10 work cards in browser. Network requests showed local `/src/assets/work-samples/*` image loads with 200 responses and no Notion-hosted image requests."
+  - task: "Work-sample deep links and hash scrolling"
+    implemented: true
+    working: true
+    file: "frontend/src/App.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Verified direct loads for `/work/cox-kings`, `/work/erasmus-plus`, unknown slug fallback, `/#work` hash scrolling, and back-navigation to `/#work` in hands-on browser testing."
+  - task: "PostHog removed from runtime"
+    implemented: true
+    working: true
+    file: "frontend/index.html"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Browser runtime had no `window.posthog`, no PostHog scripts, and no PostHog/analytics network requests during navigation."
+  - task: "Browser loads without runtime/browser errors"
+    implemented: true
+    working: true
+    file: "frontend/index.html"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Hands-on browser testing consistently reported `[ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5173/favicon.ico:0` on fresh homepage loads."
+      - working: true
+        agent: "main"
+        comment: "Added `frontend/public/favicon.svg`, linked it from `frontend/index.html`, and rechecked the page in browser. Fresh loads are now clean; the only console message is the normal React DevTools info banner."
+  - task: "ENABLE_HEALTH_CHECK endpoints work under Vite"
+    implemented: true
+    working: true
+    file: "frontend/vite.config.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Ported the documented dev health endpoints into Vite middleware and verified `/health`, `/health/simple`, `/health/ready`, `/health/live`, `/health/errors`, and `/health/stats` all return the expected dev-server responses when started with `ENABLE_HEALTH_CHECK=true npm start -- --port 4175`."
+  - task: "Frontend assets no longer depend on third-party image hosts"
+    implemented: true
+    working: true
+    file: "frontend/src/assets"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Localized all Notion-hosted work-sample images and the remaining homepage chaos image into `frontend/src/assets`. Final built output contains no Notion image URLs, PostHog, or `customer-assets.emergentagent.com` references."
+  - task: "Vitest and production build verification"
+    implemented: true
+    working: true
+    file: "frontend/package.json"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "`npm test` passed (2/2 tests) and `npm run build` succeeded under Vite, emitting assets into frontend/build."
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: true
+test_plan:
+  current_focus:
+    - "Final verification complete"
+  stuck_tasks:
+    []
+  test_all: false
+  test_priority: "high_first"
+agent_communication:
+  - agent: "main"
+    message: "Completed hands-on QA for the Vite migration and PostHog removal. Core app behavior passed, but fresh loads still emit a favicon 404 browser error that should be fixed and retested."
+  - agent: "main"
+    message: "Retested after fixes: favicon error resolved, Vite health endpoints restored, external image dependency removed, and final test/build/audit checks all passed."
