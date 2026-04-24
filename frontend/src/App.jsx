@@ -11,6 +11,8 @@ import { Toaster } from "sonner";
 import HomePage from "@/pages/HomePage";
 import WorkSamplePage from "@/pages/WorkSamplePage";
 
+const routerBaseName = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 function HashScrollHandler() {
   const location = useLocation();
 
@@ -59,7 +61,7 @@ function HashScrollHandler() {
 
 function App() {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename={routerBaseName}>
       <HashScrollHandler />
       <Toaster
         position="bottom-right"
