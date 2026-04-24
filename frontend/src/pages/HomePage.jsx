@@ -33,7 +33,7 @@ const QuoteDivider = ({ quote }) => {
 
 const HomePage = () => {
   return (
-    <main className="bg-[#FAF8F5]">
+    <main className="w-full min-h-screen bg-[#FAF8F5]">
       <Header />
       <Hero />
       <BrandHook />
