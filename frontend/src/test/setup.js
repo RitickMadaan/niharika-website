@@ -1,0 +1,23 @@
+class MockIntersectionObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+Object.defineProperty(window, "IntersectionObserver", {
+  writable: true,
+  configurable: true,
+  value: MockIntersectionObserver,
+});
+
+Object.defineProperty(globalThis, "IntersectionObserver", {
+  writable: true,
+  configurable: true,
+  value: MockIntersectionObserver,
+});
+
+Object.defineProperty(window, "scrollTo", {
+  writable: true,
+  configurable: true,
+  value: () => {},
+});
