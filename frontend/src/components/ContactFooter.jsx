@@ -3,6 +3,39 @@ import { Linkedin, Mail } from 'lucide-react';
 import { siteConfig } from '@/data/mock';
 import { useInView } from '@/hooks/useInView';
 
+const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(siteConfig.email)}`;
+
+const openGmailCompose = (event) => {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  const isMobile = /android|iphone|ipad|ipod/i.test(userAgent);
+
+  if (!isMobile) {
+    return;
+  }
+
+  event.preventDefault();
+
+  if (/android/i.test(userAgent)) {
+    const androidIntent = `intent://co?to=${encodeURIComponent(siteConfig.email)}#Intent;scheme=googlegmail;package=com.google.android.gm;S.browser_fallback_url=${encodeURIComponent(gmailComposeUrl)};end`;
+    window.location.href = androidIntent;
+    return;
+  }
+
+  const fallbackTimeout = window.setTimeout(() => {
+    window.location.href = gmailComposeUrl;
+  }, 600);
+
+  const handleVisibilityChange = () => {
+    if (document.hidden) {
+      window.clearTimeout(fallbackTimeout);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    }
+  };
+
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+  window.location.href = `googlegmail:///co?to=${encodeURIComponent(siteConfig.email)}`;
+};
+
 const ContactFooter = () => {
   const [ref, isInView] = useInView();
 
@@ -32,7 +65,10 @@ const ContactFooter = () => {
 
           <div className="flex flex-wrap gap-6 items-center">
             <a
-              href={`mailto:${siteConfig.email}`}
+              href={gmailComposeUrl}
+              onClick={openGmailCompose}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-3 font-lato text-base text-[#FAF8F5] hover:text-[#B8977E] transition-colors duration-300 border border-[#B8977E] hover:border-[#A6856C] px-6 py-3 rounded-full"
             >
               <Mail size={18} />
