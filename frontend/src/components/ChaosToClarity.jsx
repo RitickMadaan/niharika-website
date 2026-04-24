@@ -1,9 +1,9 @@
 import React from 'react';
 import { useInView } from '@/hooks/useInView';
 import { ArrowRight } from 'lucide-react';
+import chaosToClarityImage from '@/assets/chaos-to-clarity.png';
 
-const CHAOS_IMAGE =
-  'https://customer-assets.emergentagent.com/job_niharika-stories/artifacts/z94ky97x_Screenshot%202026-04-14%20at%201.10.41%E2%80%AFPM.png';
+const CHAOS_IMAGE = chaosToClarityImage;
 
 const ChaosToClarity = () => {
   const [ref, isInView] = useInView();
